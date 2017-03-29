@@ -11,30 +11,23 @@ class Command:
     def get_chars(self):
         return list(self.command)
 
-    def pad(self, ascii_list):
-        try:
-            # Test if last value is an int
-            int(ascii_list[len(ascii_list) - 1])
-            ascii_list.append(0)
-            while len(ascii_list) % 4 > 0:
-                ascii_list.append(0)
-        except ValueError:
-            ascii_list.append('00')
-            while len(ascii_list) % 4 > 0:
-                ascii_list.append('00')
-        return ascii_list
-
     def get_ascii_base10(self):
         ascii_list = []
         for i in range(0, len(self.get_chars())):
             ascii_list.append(ord(self.get_chars()[i]))
-        return self.pad(ascii_list)
+        ascii_list.append(0)
+        while len(ascii_list) % 4 > 0:
+            ascii_list.append(0)
+        return ascii_list
 
     def get_ascii_base16(self):
         ascii_list = []
         for i in range(0, len(self.get_chars())):
             ascii_list.append(format(ord(self.get_chars()[i]),'x'))
-        return self.pad(ascii_list)
+        ascii_list.append('00')
+        while len(ascii_list) % 4 > 0:
+            ascii_list.append('00')
+        return ascii_list
 
     def group_by_double_word(self):
         n = 4
